@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Estudio</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ec4899">
+<link rel="apple-touch-icon" href="icon-192.png">
 <script src="https://cdn.tailwindcss.com"></script></head>
 <body class="bg-pink-50 text-gray-800 min-h-screen">
-<div id="login" class="hidden fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-4"><h1 class="text-xl font-bold">Estudio</h1><p class="text-sm text-gray-500">Inicia sesión con tu cuenta de Google</p><div id="gbtn"></div></div>
-<main id="app" class="max-w-xl mx-auto p-4 space-y-4"></main>
+
+  <div id="login" class="hidden fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-4">
+    <h1 class="text-xl font-bold">Estudio</h1>
+    <p class="text-sm text-gray-500">Inicia sesión con tu cuenta de Google</p>
+    <div id="gbtn"></div>
+  </div>
+  <main id="app" class="max-w-xl mx-auto p-4 space-y-4"></main>
+ 
 <script>
 const CLIENT_ID='529390183847-jbcnnpkof69dagpe3lti8tj3k6s9jfji.apps.googleusercontent.com';
 const BACKEND='https://script.google.com/macros/s/AKfycbxW_zUcLqRIyQg0bZNQqV_yY2uZBIK2l48L5Mt4qy_BU7x4TVZnkMvHaya4bEXzK2CS/exec';
@@ -66,5 +75,8 @@ function carta(){const x=S.c[S.k];if(!x)return sig();
 function res(a){const x=S.c[S.k];api('estudioResultado',{id:x.id,acierto:a}).catch(()=>{});x.caja=a?Math.min(3,x.caja+1):1;S.k++;carta();}
 async function fin(){try{await api('estudioMarcar',{n:S.n,paso:S.p,valor:hoy()});S.f['ok_'+S.p]=hoy();
  show(`<div class="${card} text-sm">Listo. Quedó registrado también en KeepAPP.</div><button class="${btn}" onclick="lista()">Volver</button>`);}catch(e){fallo(e.message,'lista()');}}
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW:',e)));
 inicio();
-</script></body></html>
+</script>
+</body>
+</html>
